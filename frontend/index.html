@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YAAR AI Design Mentor</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="brand">
+                <div class="brand-logo">Y</div>
+
+                <div>
+                    <h2>YAAR</h2>
+                    <span>AI Design Mentor</span>
+                </div>
+            </div>
+
+
+            <!-- NEW REVIEW -->
+
+            <button
+                id="newReviewButton"
+                class="new-review-button"
+            >
+                <span>+</span>
+                New Review
+            </button>
+
+
+            <!-- HISTORY -->
+
+            <div class="history-section">
+
+                <div class="history-title">
+                    <span>REVIEW HISTORY</span>
+                </div>
+
+                <div
+                    id="historyList"
+                    class="history-list"
+                >
+                    <p class="history-empty">
+                        No reviews loaded
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="pipeline-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>YAAR Pipeline</strong>
+                    <small>Ready to analyze</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN WORKSPACE
+    ====================================== -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Design Review</h1>
+
+                <p>
+                    AI-powered UI analysis
+                </p>
+
+            </div>
+
+            <div class="topbar-badge">
+                AI Design Review
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             UPLOAD VIEW
+        ================================== -->
+
+        <section
+            id="uploadView"
+            class="upload-view"
+        >
+
+            <div class="hero">
+
+                <div class="hero-badge">
+                    ✦ AI DESIGN ANALYSIS
+                </div>
+
+                <h2>
+                    Turn your UI into
+                    <span>better design.</span>
+                </h2>
+
+                <p>
+                    Upload a website or application screenshot
+                    and YAAR will analyze its visual structure,
+                    text, accessibility and UI elements.
+                </p>
+
+            </div>
+
+
+            <!-- DROP ZONE -->
+
+            <div
+                id="dropZone"
+                class="drop-zone"
+            >
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/png,image/jpeg,image/jpg"
+                    hidden
+                >
+
+
+                <div class="drop-icon">
+                    ↑
+                </div>
+
+
+                <h3>
+                    Drop your UI screenshot here
+                </h3>
+
+
+                <p>
+                    or
+                    <label for="imageInput">
+                        browse files
+                    </label>
+                </p>
+
+
+                <span class="file-types">
+                    PNG · JPG · JPEG
+                </span>
+
+            </div>
+
+
+            <!-- IMAGE PREVIEW -->
+
+            <div
+                id="previewContainer"
+                class="preview-container"
+            >
+
+                <div class="preview-header">
+
+                    <div>
+                        <strong>Selected Screenshot</strong>
+
+                        <span id="fileName">
+                            -
+                        </span>
+                    </div>
+
+                    <button
+                        id="removeImageButton"
+                        class="remove-button"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <img
+                    id="imagePreview"
+                    src=""
+                    alt="Selected UI screenshot"
+                >
+
+            </div>
+
+
+            <!-- ANALYZE -->
+
+            <button
+                id="analyzeButton"
+                class="analyze-button"
+                disabled
+            >
+                <span>Analyze UI</span>
+                <span>→</span>
+            </button>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading"
+            >
+
+                <div class="loader"></div>
+
+                <strong>
+                    Analyzing your design...
+                </strong>
+
+                <p class="loading-note">
+                    The stages below will remain in progress until the complete analysis is ready.
+                </p>
+
+                <ul class="analysis-progress" aria-live="polite">
+                    <li data-stage="detecting">Detecting UI elements</li>
+                    <li data-stage="reading">Reading text</li>
+                    <li data-stage="visual">Understanding visual design</li>
+                    <li data-stage="accessibility">Checking accessibility</li>
+                    <li data-stage="recommendations">Generating recommendations</li>
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             RESULTS VIEW
+        ================================== -->
+
+        <section
+            id="resultsView"
+            class="results-view"
+        >
+
+            <div class="results-top">
+
+                <div>
+
+                    <span class="result-label">
+                        DESIGN REVIEW
+                    </span>
+
+                    <h2 id="resultTitle">
+                        UI Analysis
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="resultNewReviewButton"
+                    class="outline-button"
+                >
+                    + New Review
+                </button>
+
+            </div>
+
+
+            <!-- SCORE CARDS -->
+
+            <div class="score-grid">
+
+                <div class="score-card">
+
+                    <span>ACCESSIBILITY & USABILITY</span>
+
+                    <strong id="accessibilityScore">
+                        -
+                    </strong>
+
+                    <small>
+                        Accessibility score
+                    </small>
+
+                </div>
+
+
+                <div class="score-card">
+
+                    <span>UI ELEMENTS</span>
+
+                    <strong id="yoloCount">
+                        -
+                    </strong>
+
+                    <small>
+                        UI elements found
+                    </small>
+
+                </div>
+
+
+                <div class="score-card">
+
+                    <span>TEXT & CONTENT</span>
+
+                    <strong id="ocrCount">
+                        -
+                    </strong>
+
+                    <small>
+                        Text areas found
+                    </small>
+
+                </div>
+
+
+                <div class="score-card">
+
+                    <span>VISUAL DESIGN</span>
+
+                    <strong id="clipStatus">
+                        -
+                    </strong>
+
+                    <small>
+                        Visual review
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT DATA -->
+
+            <div class="analysis-grid">
+
+                <div class="analysis-card">
+
+                    <div class="card-heading">
+
+                        <h3>UI Elements</h3>
+
+                        <span>Detected Components</span>
+
+                    </div>
+
+                    <div id="yoloResults">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-card">
+
+                    <div class="card-heading">
+
+                        <h3>Text & Content</h3>
+
+                        <span>Text & Content</span>
+
+                    </div>
+
+                    <div id="ocrResults">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-card">
+
+                    <div class="card-heading">
+
+                        <h3>Visual Design</h3>
+
+                        <span>Design Understanding</span>
+
+                    </div>
+
+                    <div id="clipResults">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-card">
+
+                    <div class="card-heading">
+
+                        <h3>Accessibility & Usability</h3>
+
+                        <span>Accessibility & Usability</span>
+
+                    </div>
+
+                    <div id="accessibilityResults">
+                        -
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECOMMENDATIONS -->
+
+            <div class="recommendation-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h3>
+                            Design Recommendations
+                        </h3>
+
+                        <span>
+                            Based on the current analysis
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div id="recommendations">
+                    -
+                </div>
+
+            </div>
+
+
+            <!-- REVIEW INFORMATION -->
+
+            <div class="review-info">
+
+                <span>
+                    Review ID:
+                    <strong id="reviewId">-</strong>
+                </span>
+
+                <span id="reviewFilename">
+                    -
+                </span>
+
+            </div>
+
+
+            <!-- =================================
+                 DOWNLOAD REVIEW PDF
+            ================================== -->
+
+            <div class="download-review-container">
+
+                <button
+                    id="downloadPdfButton"
+                    class="download-pdf-button"
+                    type="button"
+                >
+                    <span>↓</span>
+                    <span>Download Review PDF</span>
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="js/script.js?v=3"></script>
+
+</body>
+
+</html>
