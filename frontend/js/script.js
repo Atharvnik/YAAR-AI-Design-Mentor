@@ -34,6 +34,55 @@ const resultNewReviewButton =
 const historyList =
     document.getElementById("historyList");
 
+const themeToggle =
+    document.getElementById("themeToggle");
+
+const THEME_STORAGE_KEY = "yaar-theme";
+
+
+function setTheme(theme) {
+
+    const isDark = theme === "dark";
+
+    document.documentElement.dataset.theme =
+        isDark ? "dark" : "light";
+
+    themeToggle.setAttribute(
+        "aria-pressed",
+        String(isDark)
+    );
+
+    themeToggle.setAttribute(
+        "aria-label",
+        `Switch to ${isDark ? "light" : "dark"} mode`
+    );
+
+    themeToggle.querySelector(".theme-toggle-icon").textContent =
+        isDark ? "☀" : "☾";
+
+    themeToggle.querySelector(".theme-toggle-label").textContent =
+        isDark ? "Light mode" : "Dark mode";
+}
+
+
+setTheme(
+    localStorage.getItem(THEME_STORAGE_KEY) === "dark"
+        ? "dark"
+        : "light"
+);
+
+themeToggle.addEventListener("click", function () {
+
+    const nextTheme =
+        document.documentElement.dataset.theme === "dark"
+            ? "light"
+            : "dark";
+
+    setTheme(nextTheme);
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+
+});
+
 
 // =========================================
 // RESULT ELEMENTS
